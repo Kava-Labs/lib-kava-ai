@@ -12,9 +12,17 @@
   },
   "peerDependencies": {
     "react": "19.0.0",
-    "react-dom": "19.0.0"
+    "react-dom": "19.0.0",
+    "marked": "^15.0.2",
+    "marked-highlight": "^2.2.1",
+    "dompurify": "^3.2.4",
+    "highlight.js": "^11.11.1"
   },
   "devDependencies": {
+    "marked": "^15.0.2",
+    "marked-highlight": "^2.2.1",
+    "dompurify": "^3.2.4",
+    "highlight.js": "^11.11.1",
     "react": "19.0.0",
     "react-dom": "19.0.0",
     "typescript": "~5.7.2",
