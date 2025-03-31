@@ -6,7 +6,8 @@
   "description": "shared UI and helpers library for AI projects",
   "scripts": {
     "build": "tsc",
-    "build:watch": "tsc --watch"
+    "build:watch": "tsc --watch",
+    "postinstall": "npm run build"
   },
   "peerDependencies": {
     "react": "19.0.0",
