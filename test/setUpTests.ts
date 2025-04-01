@@ -1,8 +1,8 @@
-import '@testing-library/jest-dom';
-import { afterEach, vi } from 'vitest';
-import { cleanup } from '@testing-library/react';
+import "@testing-library/jest-dom";
+import { afterEach, vi } from "vitest";
+import { cleanup } from "@testing-library/react";
 
-vi.mock('./theme/useIsMobileLayout', () => ({
+vi.mock("./theme/useIsMobileLayout", () => ({
   useIsMobileLayout: vi.fn().mockReturnValue(false),
 }));
 

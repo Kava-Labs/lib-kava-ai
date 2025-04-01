@@ -1,2 +1,3 @@
-export { MyButton } from "./components/Button";
+export * from "./components/ButtonIcon";
+export * from "./components/SideBar";
 export * from "./utils";
