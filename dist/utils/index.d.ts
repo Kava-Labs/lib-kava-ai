@@ -1,1 +1,1 @@
-export * from "./sanatize";
+export * from "./sanitize";
