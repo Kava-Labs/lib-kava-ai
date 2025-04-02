@@ -2,7 +2,7 @@ import type {
   ChatCompletionAssistantMessageParam,
   ChatCompletionMessageParam,
   ChatCompletionToolMessageParam,
-} from 'openai/resources/index';
+} from "openai/resources/index";
 
 export type ConversationHistory = {
   id: string;
@@ -13,6 +13,8 @@ export type ConversationHistory = {
 };
 
 export type ConversationHistories = Record<string, ConversationHistory>;
+
+export type MessageHistory = { id: string; messages: ChatMessage[] };
 
 export type ChatMessage =
   | ChatCompletionMessageParam

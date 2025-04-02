@@ -1,4 +1,4 @@
-import type { ChatCompletionAssistantMessageParam, ChatCompletionMessageParam, ChatCompletionToolMessageParam } from 'openai/resources/index';
+import type { ChatCompletionAssistantMessageParam, ChatCompletionMessageParam, ChatCompletionToolMessageParam } from "openai/resources/index";
 export type ConversationHistory = {
     id: string;
     model: string;
@@ -7,6 +7,10 @@ export type ConversationHistory = {
     tokensRemaining: number;
 };
 export type ConversationHistories = Record<string, ConversationHistory>;
+export type MessageHistory = {
+    id: string;
+    messages: ChatMessage[];
+};
 export type ChatMessage = ChatCompletionMessageParam | ChatCompletionToolMessageParam | ChatCompletionAssistantMessageParam;
 export type SearchableChatHistory = {
     id: string;
