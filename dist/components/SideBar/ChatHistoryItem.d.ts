@@ -1,4 +1,4 @@
-import { ConversationHistory } from "../../types/conversationHistories";
+import { ConversationHistory } from '../../types';
 export interface ChatHistoryItemProps {
     conversation: ConversationHistory;
     onHistoryItemClick: () => void;
