@@ -43,7 +43,7 @@ When you're done with local dev:
 
 ```bash
 cd ../oros         # or ../hard-ai
-npm unlink lib-kava-ai  npm install github:Kava-Labs/lib-kava-ai
+npm unlink lib-kava-ai && npm install github:Kava-Labs/lib-kava-ai
 ```
 
 ---
