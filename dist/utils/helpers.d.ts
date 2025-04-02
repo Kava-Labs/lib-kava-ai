@@ -12,3 +12,10 @@ export declare const getTimeGroup: (timestamp: number) => string;
 export declare const groupConversationsByTime: <T extends {
     lastSaved: number;
 }>(conversations: Record<string, T>) => Record<string, T[]>;
+/**
+ * Wraps matched text in a string with <strong> tags, preserving case
+ * @param text - The full text to search within
+ * @param searchTerm - The term to wrap in bold tags
+ * @returns The text with matched terms wrapped in <strong> tags if searchTerm is at least 2 characters, otherwise returns original text
+ */
+export declare const highlightMatch: (text: string, searchTerm?: string) => string;
