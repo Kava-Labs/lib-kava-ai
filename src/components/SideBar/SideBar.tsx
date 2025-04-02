@@ -1,9 +1,9 @@
 import styles from "./SideBar.module.css";
 import { ChatHistory } from "./ChatHistory";
-import type { ConversationHistories } from "../../types/conversationHistories";
 import { SideBarControls } from "./SideBarControls";
 import { useIsMobileLayout } from "../../hooks/useIsMobileLayout";
 import { JSX } from "react";
+import { ConversationHistories } from '../../types';
 
 export interface SideBarProps {
   activeConversationId: string | null;
