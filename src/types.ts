@@ -29,3 +29,6 @@ export type SearchableChatHistory = {
 
 //  type returned from getSearchableHistory
 export type SearchableChatHistories = Record<string, SearchableChatHistory>;
+
+//  Record of searchable histories, indexed by the time group (Today, Yesterday, etc.)
+export type GroupedSearchHistories = Record<string, SearchableChatHistory[]>;
