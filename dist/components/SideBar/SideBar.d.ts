@@ -1,5 +1,5 @@
+import type { ConversationHistories } from "../../types/conversationHistories";
 import { JSX } from "react";
-import { ConversationHistories } from '../../types';
 export interface SideBarProps {
     activeConversationId: string | null;
     conversationHistories: ConversationHistories;
