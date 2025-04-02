@@ -2,7 +2,7 @@ import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { memo, useMemo } from "react";
 import { ChatHistoryItem } from "./ChatHistoryItem";
 import styles from "./ChatHistory.module.css";
-import { groupConversationsByTime } from "../../utils/conversationTime";
+import { groupConversationsByTime } from '../../utils';
 import { Bot } from "lucide-react";
 export const ChatHistory = memo(({ chatHistories, onSelectConversation, activeConversationId, onDeleteConversation, onUpdateConversationTitle, }) => {
     const groupedHistories = useMemo(() => groupConversationsByTime(chatHistories), [chatHistories]);

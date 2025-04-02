@@ -1,4 +1,4 @@
-import type { ConversationHistories } from "../../types/conversationHistories";
+import { ConversationHistories } from '../../types';
 interface ChatHistoryProps {
     chatHistories: ConversationHistories;
     onSelectConversation: (id: string) => void;
