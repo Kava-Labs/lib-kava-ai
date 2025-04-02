@@ -19,9 +19,11 @@
     "marked": "^15.0.2",
     "marked-highlight": "^2.2.1",
     "react": "19.0.0",
-    "react-dom": "19.0.0"
+    "react-dom": "19.0.0",
+    "openai": "^4.73.1"
   },
   "devDependencies": {
+    "openai": "^4.73.1",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.2.0",
