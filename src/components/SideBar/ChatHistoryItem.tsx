@@ -1,4 +1,4 @@
-import { memo, useState, useRef, useCallback, useEffect } from "react";
+import { memo, useState, useRef, useCallback, useEffect, useOptimistic } from "react";
 import { ButtonIcon } from "../ButtonIcon/ButtonIcon";
 import { EllipsisVertical, Pencil, X, Trash2 } from "lucide-react";
 import styles from "./ChatHistoryItem.module.css";
@@ -8,22 +8,26 @@ export interface ChatHistoryItemProps {
   conversation: ConversationHistory;
   onHistoryItemClick: () => void;
   deleteConversation: (id: string) => void;
-  updateConversationTitle: (id: string, newTitle: string) => void;
+  updateConversationTitle: (id: string, updatedTitle: string) => void;
   isSelected?: boolean;
 }
 
 export const ChatHistoryItem = memo(
   ({
-    conversation,
-    onHistoryItemClick,
-    deleteConversation,
-    updateConversationTitle,
-    isSelected = false,
-  }: ChatHistoryItemProps) => {
+     conversation,
+     onHistoryItemClick,
+     deleteConversation,
+     updateConversationTitle,
+     isSelected = false,
+   }: ChatHistoryItemProps) => {
     const { id, title } = conversation;
     const [editingTitle, setEditingTitle] = useState(false);
     const [editInputValue, setEditInputValue] = useState(title);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [optimisticTitle, setOptimisticTitle] = useOptimistic(
+      title,
+      (_currentState, newTitle: string) => newTitle,
+    );
 
     const containerRef = useRef<HTMLDivElement>(null);
     const inputRef = useRef<HTMLInputElement>(null);
@@ -32,29 +36,28 @@ export const ChatHistoryItem = memo(
       e.preventDefault();
       e.stopPropagation();
       if (editingTitle) {
+        setEditInputValue(optimisticTitle);
         setEditingTitle(false);
-        setEditInputValue(title);
       }
       setIsMenuOpen((prev) => !prev);
     };
 
-    const handleSaveTitle = useCallback(
-      (currentTitle: string) => {
-        const trimmedTitle = currentTitle.trim();
-        if (trimmedTitle === "") {
-          setEditInputValue(title);
-          setEditingTitle(false);
-          return;
-        }
+    const editInputRef = useRef(editInputValue);
 
-        if (trimmedTitle !== title) {
-          updateConversationTitle(id, trimmedTitle);
-        }
+    const handleSaveTitle = useCallback(() => {
+      const currentTitle = editInputRef.current.trim();
 
+      if (currentTitle === '' || currentTitle === optimisticTitle) {
+        setEditInputValue(optimisticTitle);
         setEditingTitle(false);
-      },
-      [title, updateConversationTitle, id]
-    );
+        return;
+      }
+
+      setOptimisticTitle(currentTitle);
+      setEditingTitle(false);
+
+      updateConversationTitle(id, currentTitle);
+    }, [optimisticTitle, setOptimisticTitle, updateConversationTitle, id]);
 
     const handleDelete = (e: React.MouseEvent) => {
       e.stopPropagation();
@@ -65,54 +68,44 @@ export const ChatHistoryItem = memo(
     const handleEdit = (e: React.MouseEvent) => {
       e.stopPropagation();
       if (editingTitle) {
-        setEditInputValue(title);
+        setEditInputValue(optimisticTitle);
         setEditingTitle(false);
       } else {
-        setEditInputValue(title);
         setEditingTitle(true);
       }
     };
 
     const handleKeyDown = (e: React.KeyboardEvent) => {
       e.stopPropagation();
-      if (e.key === "Enter") {
-        handleSaveTitle(editInputValue);
-      } else if (e.key === "Escape") {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        handleSaveTitle();
+      } else if (e.key === 'Escape') {
         setEditInputValue(title);
         setEditingTitle(false);
       }
     };
 
     useEffect(() => {
-      if (editingTitle && inputRef.current) {
-        inputRef.current.focus();
-        inputRef.current.select();
-      }
-    }, [editingTitle]);
-
-    useEffect(() => {
       const handleClickOutside = (event: MouseEvent) => {
         const target = event.target as Node;
-
-        if (containerRef.current && !containerRef.current.contains(target)) {
+        if (containerRef.current && !containerRef.current?.contains(target)) {
           setIsMenuOpen(false);
           if (editingTitle) {
-            handleSaveTitle(editInputValue);
+            handleSaveTitle();
           }
         }
       };
 
-      document.addEventListener("mousedown", handleClickOutside);
+      document.addEventListener('mousedown', handleClickOutside);
       return () =>
-        document.removeEventListener("mousedown", handleClickOutside);
+        document.removeEventListener('mousedown', handleClickOutside);
     }, [editInputValue, editingTitle, handleSaveTitle]);
 
     return (
       <div
         ref={containerRef}
-        className={`${styles.chatHistoryItem} ${
-          isSelected ? styles.selected : ""
-        }`}
+        className={`${styles.chatHistoryItem} ${isSelected ? styles.selected : ''}`}
       >
         <div className={styles.chatHistoryContent}>
           <div
@@ -125,15 +118,19 @@ export const ChatHistoryItem = memo(
                 type="text"
                 value={editInputValue}
                 aria-label="Edit Title Input"
-                onChange={(e) => setEditInputValue(e.target.value)}
+                onChange={(e) => {
+                  setEditInputValue(e.target.value);
+                  editInputRef.current = e.target.value;
+                }}
                 onKeyDown={handleKeyDown}
                 className={styles.chatHistoryTitleInput}
                 onClick={(e) => {
                   e.stopPropagation();
                 }}
+                autoFocus
               />
             ) : (
-              <small>{title}</small>
+              <small>{optimisticTitle}</small>
             )}
           </div>
           <ButtonIcon
@@ -146,14 +143,12 @@ export const ChatHistoryItem = memo(
           />
         </div>
         <div
-          className={`${styles.buttonContainer} ${
-            isMenuOpen ? styles.show : ""
-          }`}
+          className={`${styles.buttonContainer} ${isMenuOpen ? styles.show : ''}`}
         >
           <button
             className={styles.menuButton}
             onClick={handleEdit}
-            aria-label={editingTitle ? "Cancel Rename Title" : "Rename Title"}
+            aria-label={editingTitle ? 'Cancel Rename Title' : 'Rename Title'}
           >
             {editingTitle ? (
               <>
@@ -179,5 +174,5 @@ export const ChatHistoryItem = memo(
         </div>
       </div>
     );
-  }
+  },
 );
