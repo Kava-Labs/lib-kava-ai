@@ -5,3 +5,4 @@ export * from "./utils";
 export * from "./stores";
 export * from "./hooks";
 export * from "./api";
+export * from "./types";
