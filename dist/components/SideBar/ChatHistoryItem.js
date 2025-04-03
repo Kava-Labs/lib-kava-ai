@@ -6,7 +6,7 @@ import styles from "./ChatHistoryItem.module.css";
 export const ChatHistoryItem = memo(({ conversation, onHistoryItemClick, deleteConversation, updateConversationTitle, isSelected = false, }) => {
     const { id, title } = conversation;
     const [editingTitle, setEditingTitle] = useState(false);
-    const [editInputValue, setEditInputValue] = useState(title);
+    const [editInputValue, setEditInputValue] = useState("");
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [optimisticTitle, setOptimisticTitle] = useOptimistic(title, (_currentState, newTitle) => newTitle);
     const containerRef = useRef(null);
@@ -20,11 +20,10 @@ export const ChatHistoryItem = memo(({ conversation, onHistoryItemClick, deleteC
         }
         setIsMenuOpen((prev) => !prev);
     };
-    const editInputRef = useRef(editInputValue);
     const handleSaveTitle = useCallback(() => {
-        const currentTitle = editInputRef.current.trim();
+        // Get the value from the input element
+        const currentTitle = inputRef.current?.value?.trim() || optimisticTitle;
         if (currentTitle === '' || currentTitle === optimisticTitle) {
-            setEditInputValue(optimisticTitle);
             setEditingTitle(false);
             return;
         }
@@ -40,10 +39,11 @@ export const ChatHistoryItem = memo(({ conversation, onHistoryItemClick, deleteC
     const handleEdit = (e) => {
         e.stopPropagation();
         if (editingTitle) {
-            setEditInputValue(optimisticTitle);
             setEditingTitle(false);
         }
         else {
+            // Set the edit input value to the current optimistic title when entering edit mode
+            setEditInputValue(optimisticTitle);
             setEditingTitle(true);
         }
     };
@@ -54,7 +54,6 @@ export const ChatHistoryItem = memo(({ conversation, onHistoryItemClick, deleteC
             handleSaveTitle();
         }
         else if (e.key === 'Escape') {
-            setEditInputValue(title);
             setEditingTitle(false);
         }
     };
@@ -70,10 +69,9 @@ export const ChatHistoryItem = memo(({ conversation, onHistoryItemClick, deleteC
         };
         document.addEventListener('mousedown', handleClickOutside);
         return () => document.removeEventListener('mousedown', handleClickOutside);
-    }, [editInputValue, editingTitle, handleSaveTitle]);
+    }, [editingTitle, handleSaveTitle]);
     return (_jsxs("div", { ref: containerRef, className: `${styles.chatHistoryItem} ${isSelected ? styles.selected : ''}`, children: [_jsxs("div", { className: styles.chatHistoryContent, children: [_jsx("div", { className: styles.titleContainer, onClick: editingTitle ? undefined : onHistoryItemClick, children: editingTitle ? (_jsx("input", { ref: inputRef, type: "text", value: editInputValue, "aria-label": "Edit Title Input", onChange: (e) => {
                                 setEditInputValue(e.target.value);
-                                editInputRef.current = e.target.value;
                             }, onKeyDown: handleKeyDown, className: styles.chatHistoryTitleInput, onClick: (e) => {
                                 e.stopPropagation();
                             }, autoFocus: true })) : (_jsx("small", { children: optimisticTitle })) }), _jsx(ButtonIcon, { className: styles.menuIcon, icon: EllipsisVertical, size: 20, "data-menu-button": "true", "aria-label": "Chat Options", onClick: handleMenuClick })] }), _jsxs("div", { className: `${styles.buttonContainer} ${isMenuOpen ? styles.show : ''}`, children: [_jsx("button", { className: styles.menuButton, onClick: handleEdit, "aria-label": editingTitle ? 'Cancel Rename Title' : 'Rename Title', children: editingTitle ? (_jsxs(_Fragment, { children: [_jsx(X, { size: 16 }), _jsx("span", { children: "Cancel" })] })) : (_jsxs(_Fragment, { children: [_jsx(Pencil, { size: 16 }), _jsx("span", { children: "Rename" })] })) }), _jsxs("button", { className: `${styles.menuButton} ${styles.deleteButton}`, "data-delete": "true", onClick: handleDelete, "aria-label": "Delete Chat", children: [_jsx(Trash2, { size: 16 }), _jsx("span", { children: "Delete" })] })] })] }));
