@@ -22,7 +22,7 @@ export const ChatHistoryItem = memo(
    }: ChatHistoryItemProps) => {
     const { id, title } = conversation;
     const [editingTitle, setEditingTitle] = useState(false);
-    const [editInputValue, setEditInputValue] = useState(title);
+    const [editInputValue, setEditInputValue] = useState("");
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [optimisticTitle, setOptimisticTitle] = useOptimistic(
       title,
@@ -42,13 +42,11 @@ export const ChatHistoryItem = memo(
       setIsMenuOpen((prev) => !prev);
     };
 
-    const editInputRef = useRef(editInputValue);
-
     const handleSaveTitle = useCallback(() => {
-      const currentTitle = editInputRef.current.trim();
+      // Get the value from the input element
+      const currentTitle = inputRef.current?.value?.trim() || optimisticTitle;
 
       if (currentTitle === '' || currentTitle === optimisticTitle) {
-        setEditInputValue(optimisticTitle);
         setEditingTitle(false);
         return;
       }
@@ -68,9 +66,10 @@ export const ChatHistoryItem = memo(
     const handleEdit = (e: React.MouseEvent) => {
       e.stopPropagation();
       if (editingTitle) {
-        setEditInputValue(optimisticTitle);
         setEditingTitle(false);
       } else {
+        // Set the edit input value to the current optimistic title when entering edit mode
+        setEditInputValue(optimisticTitle);
         setEditingTitle(true);
       }
     };
@@ -81,7 +80,6 @@ export const ChatHistoryItem = memo(
         e.preventDefault();
         handleSaveTitle();
       } else if (e.key === 'Escape') {
-        setEditInputValue(title);
         setEditingTitle(false);
       }
     };
@@ -100,7 +98,7 @@ export const ChatHistoryItem = memo(
       document.addEventListener('mousedown', handleClickOutside);
       return () =>
         document.removeEventListener('mousedown', handleClickOutside);
-    }, [editInputValue, editingTitle, handleSaveTitle]);
+    }, [editingTitle, handleSaveTitle]);
 
     return (
       <div
@@ -120,7 +118,6 @@ export const ChatHistoryItem = memo(
                 aria-label="Edit Title Input"
                 onChange={(e) => {
                   setEditInputValue(e.target.value);
-                  editInputRef.current = e.target.value;
                 }}
                 onKeyDown={handleKeyDown}
                 className={styles.chatHistoryTitleInput}
