@@ -21,8 +21,6 @@ export const ChatHistory = memo(
     onDeleteConversation,
     onUpdateConversationTitle,
   }: ChatHistoryProps) => {
-    if (!chatHistories) return;
-
     const groupedHistories = useMemo(
       () => groupConversationsByTime(chatHistories),
       [chatHistories]

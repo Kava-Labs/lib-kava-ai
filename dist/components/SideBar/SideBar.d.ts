@@ -2,7 +2,7 @@ import type { ConversationHistories } from "../../types/conversationHistories";
 import { JSX } from "react";
 export interface SideBarProps {
     activeConversationId: string | null;
-    conversationHistories: ConversationHistories;
+    conversationHistories: ConversationHistories | null;
     onSelectConversation: (id: string) => void;
     onDeleteConversation: (id: string) => void;
     onUpdateConversationTitle: (id: string, newTitle: string) => void;
