@@ -4,6 +4,7 @@ import { describe, test, expect, beforeEach, vi } from "vitest";
 import { SideBar, SideBarProps } from "./SideBar";
 import { useIsMobileLayout } from "../../hooks/useIsMobileLayout";
 
+
 vi.mock("../../hooks/useIsMobileLayout");
 
 const sideBarLogo = <img alt="mock sideBar" />;
@@ -19,6 +20,11 @@ describe("SideBar", () => {
     onOpenSearchModal: vi.fn(),
     isSideBarOpen: false,
     SideBarLogo: sideBarLogo,
+    styles: {
+      sidebar: '',
+      isOpen: '',
+      isHidden: '',
+    }
   };
 
   const mockConversationHistories = {

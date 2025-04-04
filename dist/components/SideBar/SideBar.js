@@ -1,9 +1,8 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import styles from "./SideBar.module.css";
 import { ChatHistory } from "./ChatHistory";
 import { SideBarControls } from "./SideBarControls";
 import { useIsMobileLayout } from "../../hooks/useIsMobileLayout";
-export const SideBar = ({ activeConversationId, conversationHistories, onSelectConversation, onDeleteConversation, onUpdateConversationTitle, onOpenSearchModal, onCloseClick, isSideBarOpen, SideBarLogo, }) => {
+export const SideBar = ({ activeConversationId, conversationHistories, onSelectConversation, onDeleteConversation, onUpdateConversationTitle, onOpenSearchModal, onCloseClick, isSideBarOpen, SideBarLogo, styles, }) => {
     const isMobileLayout = useIsMobileLayout();
     const isMobileSideBarOpen = isSideBarOpen && isMobileLayout;
     const isDesktopSideBarOpen = isSideBarOpen && !isMobileLayout;
