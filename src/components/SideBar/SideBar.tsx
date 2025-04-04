@@ -1,4 +1,3 @@
-import styles from "./SideBar.module.css";
 import { ChatHistory } from "./ChatHistory";
 import type { ConversationHistories } from "../../types/conversationHistories";
 import { SideBarControls } from "./SideBarControls";
@@ -15,6 +14,7 @@ export interface SideBarProps {
   onCloseClick: () => void;
   isSideBarOpen: boolean;
   SideBarLogo: JSX.Element;
+  styles: Record<string, string>
 }
 
 export const SideBar = ({
@@ -27,6 +27,7 @@ export const SideBar = ({
   onCloseClick,
   isSideBarOpen,
   SideBarLogo,
+  styles,
 }: SideBarProps) => {
   const isMobileLayout = useIsMobileLayout();
   const isMobileSideBarOpen = isSideBarOpen && isMobileLayout;
