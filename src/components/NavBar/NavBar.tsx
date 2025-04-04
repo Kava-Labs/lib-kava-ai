@@ -3,7 +3,6 @@ import { Menu, PanelLeftOpen, SquarePen } from 'lucide-react';
 import { useIsMobileLayout } from '../../hooks';
 import { ButtonIcon } from '../ButtonIcon';
 
-
 export interface NavBarProps {
   onMenuClick: () => void;
   isSideBarOpen: boolean;
