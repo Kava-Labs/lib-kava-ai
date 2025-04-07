@@ -2,18 +2,29 @@ import styles from './NavBar.module.css';
 import { Menu, PanelLeftOpen, SquarePen } from 'lucide-react';
 import { useIsMobileLayout } from '../../hooks';
 import { ButtonIcon } from '../ButtonIcon';
+import { ReactNode } from 'react';
 
 export interface NavBarProps {
   onMenuClick: () => void;
   isSideBarOpen: boolean;
   onNewChatClick: () => void;
+  /**
+   * Component that appears in the center on mobile and right section on desktop
+   */
+  primaryControlComponent?: ReactNode;
+  /**
+   * Optional component for the right section on mobile (replaces new chat button)
+   */
+  secondaryControlComponent?: ReactNode;
 }
 
 export const NavBar = ({
-  onMenuClick,
-  isSideBarOpen,
-  onNewChatClick,
-}: NavBarProps) => {
+                         onMenuClick,
+                         isSideBarOpen,
+                         onNewChatClick,
+                         primaryControlComponent,
+                         secondaryControlComponent,
+                       }: NavBarProps) => {
   const isMobileLayout = useIsMobileLayout();
 
   const newChatButton = (
@@ -61,9 +72,14 @@ export const NavBar = ({
         )}
       </div>
 
+      <div className={styles.centerSection}>
+        {isMobileLayout && primaryControlComponent}
+      </div>
+
       <div className={styles.rightSection}>
-        {isMobileLayout && newChatButton}
+        {!isMobileLayout && primaryControlComponent}
+        {isMobileLayout && (secondaryControlComponent || newChatButton)}
       </div>
     </div>
   );
-};
+}
