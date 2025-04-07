@@ -3,7 +3,7 @@ import styles from './NavBar.module.css';
 import { Menu, PanelLeftOpen, SquarePen } from 'lucide-react';
 import { useIsMobileLayout } from '../../hooks';
 import { ButtonIcon } from '../ButtonIcon';
-export const NavBar = ({ onMenuClick, isSideBarOpen, onNewChatClick, }) => {
+export const NavBar = ({ onMenuClick, isSideBarOpen, onNewChatClick, primaryControlComponent, secondaryControlComponent, }) => {
     const isMobileLayout = useIsMobileLayout();
     const newChatButton = (_jsx(ButtonIcon, { icon: SquarePen, tooltip: {
             text: 'New Chat',
@@ -15,5 +15,5 @@ export const NavBar = ({ onMenuClick, isSideBarOpen, onNewChatClick, }) => {
                             }, "aria-label": "Open Desktop Menu", onClick: onMenuClick })), newChatButton] })) : (_jsx("div", { className: styles.menu, children: _jsx(ButtonIcon, { icon: Menu, tooltip: {
                             text: 'Menu',
                             position: 'bottom',
-                        }, "aria-label": "Open Mobile Menu", onClick: onMenuClick }) })) }), _jsx("div", { className: styles.rightSection, children: isMobileLayout && newChatButton })] }));
+                        }, "aria-label": "Open Mobile Menu", onClick: onMenuClick }) })) }), _jsx("div", { className: styles.centerSection, children: isMobileLayout && primaryControlComponent }), _jsxs("div", { className: styles.rightSection, children: [!isMobileLayout && primaryControlComponent, isMobileLayout && (secondaryControlComponent || newChatButton)] })] }));
 };
