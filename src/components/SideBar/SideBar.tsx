@@ -3,6 +3,7 @@ import type { ConversationHistories } from "../../types/conversationHistories";
 import { SideBarControls } from "./SideBarControls";
 import { useIsMobileLayout } from "../../hooks/useIsMobileLayout";
 import { JSX } from "react";
+import { ArrowUpRight } from "lucide-react";
 
 export interface SideBarProps {
   activeConversationId: string | null;
@@ -14,7 +15,8 @@ export interface SideBarProps {
   onCloseClick: () => void;
   isSideBarOpen: boolean;
   SideBarLogo: JSX.Element;
-  styles: Record<string, string>
+  styles: Record<string, string>;
+  links?: { title: string; url: string; iconURL?: string }[];
 }
 
 export const SideBar = ({
@@ -28,6 +30,7 @@ export const SideBar = ({
   isSideBarOpen,
   SideBarLogo,
   styles,
+  links,
 }: SideBarProps) => {
   const isMobileLayout = useIsMobileLayout();
   const isMobileSideBarOpen = isSideBarOpen && isMobileLayout;
@@ -40,6 +43,8 @@ export const SideBar = ({
 
   const hasNoConversationHistory =
     conversationsLoaded && Object.keys(conversationHistories).length === 0;
+
+  const sideBarLinks = links ? links : [];
 
   return (
     <div className={sideBarStyles}>
@@ -54,14 +59,43 @@ export const SideBar = ({
         </div>
       </div>
 
+      {
+        <div className={styles.sidebarLinkContainer}>
+          {sideBarLinks.map((link) => {
+            return (
+              <div
+                key={`${link.title}-${link.url}`}
+                className={styles.sidebarLink}
+                onClick={() => window.open(link.url, "_blank")?.focus()}
+              >
+                <div className={styles.sidebarLinkItemContainer}>
+                  {link.iconURL ? (
+                    <img
+                      src={link.iconURL}
+                      aria-label="link-icon"
+                      width={20}
+                      height={20}
+                    />
+                  ) : null}
+                  <p> {link.title}</p>
+                </div>
+                <ArrowUpRight width={20} height={20} />
+              </div>
+            );
+          })}
+        </div>
+      }
+
       <div className={styles.sidebarContent}>
-        {conversationsLoaded && <ChatHistory
-          chatHistories={conversationHistories}
-          onSelectConversation={onSelectConversation}
-          activeConversationId={activeConversationId}
-          onDeleteConversation={onDeleteConversation}
-          onUpdateConversationTitle={onUpdateConversationTitle}
-        />}
+        {conversationsLoaded && (
+          <ChatHistory
+            chatHistories={conversationHistories}
+            onSelectConversation={onSelectConversation}
+            activeConversationId={activeConversationId}
+            onDeleteConversation={onDeleteConversation}
+            onUpdateConversationTitle={onUpdateConversationTitle}
+          />
+        )}
       </div>
     </div>
   );
