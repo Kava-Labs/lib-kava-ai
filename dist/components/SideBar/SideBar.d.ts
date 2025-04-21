@@ -11,5 +11,10 @@ export interface SideBarProps {
     isSideBarOpen: boolean;
     SideBarLogo: JSX.Element;
     styles: Record<string, string>;
+    links?: {
+        title: string;
+        url: string;
+        iconURL?: string;
+    }[];
 }
-export declare const SideBar: ({ activeConversationId, conversationHistories, onSelectConversation, onDeleteConversation, onUpdateConversationTitle, onOpenSearchModal, onCloseClick, isSideBarOpen, SideBarLogo, styles, }: SideBarProps) => import("react/jsx-runtime").JSX.Element;
+export declare const SideBar: ({ activeConversationId, conversationHistories, onSelectConversation, onDeleteConversation, onUpdateConversationTitle, onOpenSearchModal, onCloseClick, isSideBarOpen, SideBarLogo, styles, links, }: SideBarProps) => import("react/jsx-runtime").JSX.Element;
