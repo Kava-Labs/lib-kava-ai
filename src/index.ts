@@ -4,6 +4,7 @@ export * from "./components/SearchHistoryModal";
 export * from "./components/SideBar/SideBarControls";
 export * from "./components/SideBar/ChatHistory";
 export * from "./components/NavBar";
+export * from "./components/LandingContent";
 export * from "./utils";
 export * from "./stores";
 export * from "./hooks";
