@@ -65,30 +65,6 @@
   gap: var(--spacing-xs);
 }
 
-/* Link styles */
-.sidebarLink {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-}
-
-.sidebarLinkItemContainer {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-xs);
-}
-
-/* Hide arrow icon by default and show on hover */
-.linkArrowIcon {
-  opacity: 0;
-  transition: opacity 0.2s ease;
-}
-
-.sidebarLink:hover .linkArrowIcon {
-  opacity: 1;
-}
 
 @media (min-width: 768px) {
   .sidebar {
