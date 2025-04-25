@@ -20,18 +20,18 @@ export interface SideBarProps {
 }
 
 export const SideBar = ({
-  activeConversationId,
-  conversationHistories,
-  onSelectConversation,
-  onDeleteConversation,
-  onUpdateConversationTitle,
-  onOpenSearchModal,
-  onCloseClick,
-  isSideBarOpen,
-  SideBarLogo,
-  styles,
-  links,
-}: SideBarProps) => {
+                          activeConversationId,
+                          conversationHistories,
+                          onSelectConversation,
+                          onDeleteConversation,
+                          onUpdateConversationTitle,
+                          onOpenSearchModal,
+                          onCloseClick,
+                          isSideBarOpen,
+                          SideBarLogo,
+                          styles,
+                          links,
+                        }: SideBarProps) => {
   const isMobileLayout = useIsMobileLayout();
   const isMobileSideBarOpen = isSideBarOpen && isMobileLayout;
   const isDesktopSideBarOpen = isSideBarOpen && !isMobileLayout;
@@ -75,11 +75,12 @@ export const SideBar = ({
                       aria-label="link-icon"
                       width={20}
                       height={20}
+                      alt={`${link.title}-link-icon`}
                     />
                   ) : null}
                   <p> {link.title}</p>
                 </div>
-                <ArrowUpRight width={20} height={20} />
+                <ArrowUpRight className={styles.linkArrowIcon} width={20} height={20}/>
               </div>
             );
           })}
