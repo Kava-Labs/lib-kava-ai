@@ -7,7 +7,7 @@ import {
   groupConversationsByTime,
   highlightMatch
 } from './helpers';
-import { ConversationHistories, SearchableChatHistories, SearchableChatHistory } from '../types';
+import { ConversationHistories, ConversationHistory, SearchableChatHistories, SearchableChatHistory } from '../types';
 
 describe('getTimeGroup', () => {
   beforeEach(() => {
@@ -65,21 +65,24 @@ describe('groupConversationsByTime', () => {
         title: 'Today Chat',
         lastSaved: now - 1000 * 60 * 60 * 2, // 2 hours ago
         model: 'gpt-4o-mini',
-        tokensRemaining: 128000,
+        promptTokens: 64000,
+        completionTokens: 64000,
       },
       '2': {
         id: '2',
         title: 'Yesterday Chat',
         lastSaved: now - 1000 * 60 * 60 * 25, // 25 hours ago
         model: 'gpt-4o-mini',
-        tokensRemaining: 128000,
+        promptTokens: 64000,
+        completionTokens: 64000,
       },
       '3': {
         id: '3',
         title: 'Last Week Chat',
         lastSaved: now - 1000 * 60 * 60 * 24 * 5, // 5 days ago
         model: 'gpt-4o-mini',
-        tokensRemaining: 128000,
+        promptTokens: 64000,
+        completionTokens: 64000,
       },
     };
   });
@@ -98,13 +101,13 @@ describe('groupConversationsByTime', () => {
   });
 
   it('should sort conversations by timestamp within groups', () => {
-    const anotherTodayChat = {
+    const anotherTodayChat: ConversationHistory = {
       id: '4',
       title: 'Another Today Chat',
       lastSaved: now - 1000 * 60 * 60, // 1 hour ago
-      conversation: [],
       model: 'gpt-4o-mini',
-      tokensRemaining: 128000,
+      completionTokens: 4000,
+      promptTokens: 64000,
     };
 
     mockHistories['4'] = anotherTodayChat;

@@ -21,7 +21,8 @@ describe("ChatHistory Component", () => {
       model: "gpt-4-turbo",
       title: "First Today Conversation",
       lastSaved: Date.now(),
-      tokensRemaining: 6000,
+      promptTokens: 3000,
+      completionTokens: 3000,
     },
   };
 
@@ -62,14 +63,16 @@ describe("ChatHistory Component", () => {
         model: "gpt-4-turbo",
         title: "Second Today Conversation",
         lastSaved: Date.now() - 3600000, // 1 hour ago
-        tokensRemaining: 6000,
+        promptTokens: 3000,
+        completionTokens: 3000,
       },
       "conv-yesterday": {
         id: "conv-yesterday",
         model: "claude-3-opus",
         title: "Yesterday Conversation",
         lastSaved: Date.now() - 86400000, // 24 hours ago
-        tokensRemaining: 5000,
+        promptTokens: 2500,
+        completionTokens: 2500,
       },
     };
 

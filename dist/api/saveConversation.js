@@ -10,7 +10,8 @@ export async function saveConversation(conversation, messages) {
         model: conversation.model,
         title: conversation.title,
         lastSaved: conversation.lastSaved,
-        tokensRemaining: conversation.tokensRemaining,
+        promptTokens: conversation.promptTokens,
+        completionTokens: conversation.completionTokens,
     });
     // Store messages separately
     const messagesSaveRequest = messagesStore.put({
