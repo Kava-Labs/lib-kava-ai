@@ -27,14 +27,16 @@ describe("mergeTitleAndMessages", () => {
     {
       id: "123",
       title: "Chat 1",
-      tokensRemaining: 10000,
+      promptTokens: 5000,
+      completionTokens: 3000,
       lastSaved: 987654321,
       model: "gpt-4o",
     },
     {
       id: "456",
       title: "Chat 2",
-      tokensRemaining: 10000,
+      promptTokens: 5000,
+      completionTokens: 3000,
       lastSaved: 987654321,
       model: "gpt-4o",
     },
@@ -70,7 +72,8 @@ describe("mergeTitleAndMessages", () => {
       {
         id: "123",
         title: "Chat 1",
-        tokensRemaining: 10000,
+        promptTokens: 5000,
+        completionTokens: 3000,
         lastSaved: 987654321,
         model: "gpt-4o",
       },

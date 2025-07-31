@@ -25,7 +25,8 @@ export async function saveConversation(
     model: conversation.model,
     title: conversation.title,
     lastSaved: conversation.lastSaved,
-    tokensRemaining: conversation.tokensRemaining,
+    promptTokens: conversation.promptTokens,
+    completionTokens: conversation.completionTokens,
   });
 
   // Store messages separately

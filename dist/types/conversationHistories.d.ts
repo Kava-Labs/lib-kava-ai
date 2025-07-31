@@ -4,7 +4,8 @@ export type ConversationHistory = {
     model: string;
     title: string;
     lastSaved: number;
-    tokensRemaining: number;
+    promptTokens: number;
+    completionTokens: number;
 };
 export type ConversationHistories = Record<string, ConversationHistory>;
 export type MessageHistory = {

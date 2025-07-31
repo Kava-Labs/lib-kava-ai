@@ -33,21 +33,24 @@ describe("SideBar", () => {
       model: "gpt-4o",
       title: "First title",
       lastSaved: Date.now(), //  will trigger "Today"
-      tokensRemaining: 6453,
+      promptTokens: 3226,
+      completionTokens: 3227,
     },
     "456": {
       id: "456",
       model: "gpt-4o",
       title: "Second title",
       lastSaved: 123, //  will trigger "Older"
-      tokensRemaining: 6453,
+      promptTokens: 3226,
+      completionTokens: 3227,
     },
     "789": {
       id: "789",
       model: "gpt-4o",
       title: "Third title",
       lastSaved: 123,
-      tokensRemaining: 6453,
+      promptTokens: 3226,
+      completionTokens: 3227,
     },
   };
 

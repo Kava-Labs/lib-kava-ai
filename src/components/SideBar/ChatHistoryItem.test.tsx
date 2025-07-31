@@ -10,7 +10,8 @@ describe("ChatHistoryItem Component", () => {
     model: "gpt-4-turbo",
     title: "Test Conversation",
     lastSaved: Date.now(),
-    tokensRemaining: 6453,
+    promptTokens: 3226,
+    completionTokens: 3227,
   };
 
   const mockProps = {
