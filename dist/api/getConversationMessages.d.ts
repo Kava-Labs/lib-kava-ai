@@ -1,2 +1,2 @@
-import type { ChatMessage } from "../types/conversationHistories";
-export declare function getConversationMessages(id: string): Promise<ChatMessage[] | null>;
+import type { MessageHistory } from "../types/conversationHistories";
+export declare function getConversationMessages(id: string): Promise<MessageHistory | null>;

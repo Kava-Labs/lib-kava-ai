@@ -11,6 +11,7 @@ export type ConversationHistories = Record<string, ConversationHistory>;
 export type MessageHistory = {
     id: string;
     messages: ChatMessage[];
+    toolResults?: ToolResult[];
 };
 export type ChatMessage = ChatCompletionMessageParam | ChatCompletionToolMessageParam | ChatCompletionAssistantMessageParam;
 export type SearchableChatHistory = {
@@ -21,3 +22,12 @@ export type SearchableChatHistory = {
 };
 export type SearchableChatHistories = Record<string, SearchableChatHistory>;
 export type GroupedSearchHistories = Record<string, SearchableChatHistory[]>;
+export interface ToolResult {
+    toolCallId: string;
+    toolName: string;
+    result: string;
+    timestamp: number;
+    error?: string;
+    stackTrace?: string;
+    isError?: boolean;
+}
