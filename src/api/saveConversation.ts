@@ -4,11 +4,12 @@ import {
   CONVERSATION_STORE_NAME,
   emitStoreUpdate,
 } from "./idb";
-import type { ChatMessage, ConversationHistory } from "../types";
+import type { ChatMessage, ConversationHistory, ToolResult } from "../types";
 
 export async function saveConversation(
   conversation: ConversationHistory,
-  messages: ChatMessage[]
+  messages: ChatMessage[],
+  toolResults?: ToolResult[]
 ): Promise<string> {
   const db = await idbDatabase();
 
@@ -33,6 +34,7 @@ export async function saveConversation(
   const messagesSaveRequest = messagesStore.put({
     id: conversation.id,
     messages,
+    toolResults,
   });
 
   return new Promise((resolve, reject) => {

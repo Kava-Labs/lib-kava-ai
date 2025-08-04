@@ -1,5 +1,5 @@
 import { idbDatabase, CONVERSATION_MESSAGES_STORE_NAME, CONVERSATION_STORE_NAME, emitStoreUpdate, } from "./idb";
-export async function saveConversation(conversation, messages) {
+export async function saveConversation(conversation, messages, toolResults) {
     const db = await idbDatabase();
     const tx = db.transaction([CONVERSATION_STORE_NAME, CONVERSATION_MESSAGES_STORE_NAME], "readwrite");
     const conversationStore = tx.objectStore(CONVERSATION_STORE_NAME);
@@ -17,6 +17,7 @@ export async function saveConversation(conversation, messages) {
     const messagesSaveRequest = messagesStore.put({
         id: conversation.id,
         messages,
+        toolResults,
     });
     return new Promise((resolve, reject) => {
         let conversationSaved = false;

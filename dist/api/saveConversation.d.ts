@@ -1,2 +1,2 @@
-import type { ChatMessage, ConversationHistory } from "../types";
-export declare function saveConversation(conversation: ConversationHistory, messages: ChatMessage[]): Promise<string>;
+import type { ChatMessage, ConversationHistory, ToolResult } from "../types";
+export declare function saveConversation(conversation: ConversationHistory, messages: ChatMessage[], toolResults?: ToolResult[]): Promise<string>;
